@@ -1,0 +1,337 @@
+.nav-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  background-color: black !important;
+  color: white !important;
+  z-index: 1000 !important;
+  padding: 0.5rem 0 !important;
+}
+
+.brand-name {
+  font-family: 'Great Vibes', cursive !important;
+  font-size: 2.5rem !important;
+  color: transparent !important;
+  background: linear-gradient(to right, white, #b57c0b) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  margin: 0 !important;
+  text-align: center !important;
+  flex-grow: 1 !important;
+}
+
+/* Navigation Menu Styles */
+.nav-menu {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 250px !important;
+  height: 100vh !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
+  padding-top: 5rem !important;
+  transform: translateX(-100%) !important;
+  transition: transform 0.3s ease !important;
+  z-index: 999 !important;
+}
+
+.nav-menu.open {
+  transform: translateX(0) !important;
+}
+
+/* Navigation Links */
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Add small gap between items */
+}
+
+.nav-item {
+  margin: 0;
+  padding: 2px 0;
+}
+
+.nav-link {
+  color: white !important;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 2px 10px; /* Reduced vertical padding */
+  display: block;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #b57c0b !important;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #b57c0b;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Hamburger Menu */
+.hamburger-btn {
+  z-index: 1001 !important;
+  background: transparent !important;
+}
+
+.hamburger-line {
+  background-color: white !important;
+}
+
+/* Weather Widget */
+.weather-widget {
+  z-index: 1000;
+  margin-left: auto;
+}
+
+
+button {
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.25s, color 0.25s;
+}
+  
+button:focus,
+button:focus-visible {
+outline: 4px auto #b3e5fc; /* Light blue focus outline */
+}
+
+.cashier-container {
+    padding: 20px;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+  
+  .cashier-heading {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .cashier-message {
+    font-size: 1.2em;
+    margin-top: 5px;
+  }
+  
+  .menu-categories {
+    margin-top: 20px;
+  }
+  
+  .category {
+    margin-bottom: 15px;
+  }
+  
+  .category h3 {
+    color: #646cff;
+  }
+  
+  .category ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .category li {
+    margin: 5px 0;
+  }
+  
+  .category-button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 1em;
+    height: 50px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #213547;
+    border: 2px solid #ccc;
+}
+
+.cart-div {
+    border: 2px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+    width: 180px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #efe6e5;
+}
+
+.content {
+    padding: 20px;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-delete {
+    margin-right: 5px;
+    padding: 5px;
+    cursor: pointer;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.cart-modify {
+    padding: 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.category-box{
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    border-right: 2px solid #ccc;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.category-content {
+  flex-grow: 1; /* This makes the content take up all available space */
+  overflow-y: auto; /* Optional: adds scrolling if content overflows */
+}
+
+.accessibility-button {
+  margin-top: auto; /* Pushes the button to the bottom */
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.menu-box {
+    width: 55%;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    grid-auto-rows: min-content;
+    justify-content: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.cart-box {
+    width: 25%;
+    border-left: 2px solid #ccc;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.user-input{
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.cart-items {
+    border: 2px solid #ccc;
+    padding: 10px;
+    height: 425px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+.pay-button {
+    background-color: green;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1.8em; 
+}
+
+.modification-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 350px; /* Adjust this value for a wider pop-up */
+    z-index: 1000;
+}
+
+.modification-button-done {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.modification-button-cancel {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.cashier-container {
+  padding: 20px;
+  margin-top: 100px; 
+  background-color: #f4f4f9;
+  display: flex;
+}
+
+.cart-div h3 {
+  font-size: 1.2rem; /* Adjust the size for the menu item title */
+}
+
+.cart-div p {
+  font-size: 1rem; /* Adjust the size for the price */
+}

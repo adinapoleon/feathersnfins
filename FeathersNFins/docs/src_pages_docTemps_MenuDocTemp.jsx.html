@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: src/pages/docTemps/MenuDocTemp.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: src/pages/docTemps/MenuDocTemp.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from 'react';
+import styles from "./MenuPage.module.css";
+import 'bootstrap/dist/css/bootstrap.css';
+import specialImage from '../assets/image/special.png';
+import Header from './Header';
+import { useAuth } from '../context/AuthContext';
+import vegetarianIcon from '../assets/image/vegetarian.png'; 
+import LanguageSelector from '../components/LanguageSelector';
+import TranslateText from '../components/TranslateText';
+
+
+
+  const [menuItems, setMenuItems] = useState([]);
+
+  const { isAuthenticated, user } = useAuth();
+
+  /**
+ * Logs authentication state whenever it changes.
+ * Runs on each change to `isAuthenticated` or `user`.
+ */
+  useEffect(() => {
+    console.log('Auth State:', { isAuthenticated, user });
+  }, [isAuthenticated, user]);
+  /**
+ * Filters the menu items based on a given category.
+ * @param {string} category - The category of the menu items to filter (e.g., 'Special')
+ * @returns {Array} - An array of menu items belonging to the specified category
+ */
+  const getItemsByCategory = (category) => {
+    return menuItems.filter(item => item.category === category);
+  };
+
+  // http://localhost:3001/menu
+  // https://project-3-a7za.onrender.com/menu
+  useEffect(() => {
+    fetch('https://project-3-a7za.onrender.com/menu')
+      .then(response => response.json())
+      .then(data => setMenuItems(data))
+      .catch(error => console.error('Error fetching menu items:', error));
+  }, []);
+  /**
+ * Renders menu items for a specific category.
+ * @param {string} category - The category of the items to be rendered (e.g., 'Special')
+ * @returns {JSX.Element[]} - An array of JSX elements for each item in the category
+ */
+  const renderMenuItems = (category) => {
+    return getItemsByCategory(category).map(item => {
+      console.log(`Rendering ${item.name}: Vegetarian =`, item.isvegetarian);
+      return (
+        &lt;div className={styles.menuItem} key={item.menuitemid}>
+          &lt;div className={styles.menuItemName}>
+            &lt;TranslateText>{item.name}&lt;/TranslateText>
+            {item.isvegetarian &amp;&amp; (
+              &lt;img 
+                src={vegetarianIcon} 
+                alt="Vegetarian" 
+                className={styles.vegetarianIcon} 
+              />
+            )}
+          &lt;/div>
+          &lt;div className={styles.menuItemDescription}>
+            &lt;TranslateText>{item.description || "No description available"}&lt;/TranslateText>
+          &lt;/div>
+          &lt;div className={styles.menuItemPrice}>
+            {item.price === 0 ? (
+              &lt;p>&lt;TranslateText>Sold Out&lt;/TranslateText>&lt;/p>
+            ) : (
+              `$${item.price.toFixed(2)}`
+            )}
+          &lt;/div>
+        &lt;/div>
+      );
+    });
+  };
+  /**
+    * Renders a featured special item from the menu.
+    * @returns {JSX.Element|null} - JSX element for the special item or null if no special item is found
+    */
+  const renderSpecialItems = () => {
+    // Get first special item from database
+    const specialItem = getItemsByCategory('Special')[0];
+  
+    if (!specialItem) {
+      return null;
+    }
+  
+    return (
+      &lt;div className={styles.specialSection}>
+        {/* Featured Special */}
+        &lt;div className={styles.featuredSpecial}>
+          &lt;div className={styles.imageContainer}>
+            &lt;img 
+              src={specialImage} 
+              alt={`${specialItem.name} Special`} 
+              className={styles.featuredImage}
+            />
+            &lt;div className={styles.imageOverlay} />
+          &lt;/div>
+          
+          &lt;div className={styles.specialBadge}>
+            &lt;TranslateText>Special!&lt;/TranslateText>
+          &lt;/div>
+          
+          &lt;div className={styles.contentOverlay}>
+            &lt;h3 className={styles.specialTitle}>&lt;TranslateText>{specialItem.name}&lt;/TranslateText>&lt;/h3>
+            &lt;p className={styles.specialDescription}>
+              &lt;TranslateText>{specialItem.description || "No description available"}&lt;/TranslateText>
+            &lt;/p>
+            &lt;p className={styles.specialPrice}>${specialItem.price.toFixed(2)}&lt;/p>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    );
+  };
+
+
+
+export default MenuPage;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AboutSection">AboutSection</a></li><li><a href="global.html#AnalyticsDashboard">AnalyticsDashboard</a></li><li><a href="global.html#LoginModal">LoginModal</a></li><li><a href="global.html#MenuItem">MenuItem</a></li><li><a href="global.html#ReviewModal">ReviewModal</a></li><li><a href="global.html#ThankYouModal">ThankYouModal</a></li><li><a href="global.html#addEmployee">addEmployee</a></li><li><a href="global.html#addInventoryItem">addInventoryItem</a></li><li><a href="global.html#addMenuItem">addMenuItem</a></li><li><a href="global.html#addToCart">addToCart</a></li><li><a href="global.html#calculateTimeDifference">calculateTimeDifference</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#createCustomer">createCustomer</a></li><li><a href="global.html#createCustomerWithAddress">createCustomerWithAddress</a></li><li><a href="global.html#createOrder">createOrder</a></li><li><a href="global.html#createOrderItem">createOrderItem</a></li><li><a href="global.html#currentOrders">currentOrders</a></li><li><a href="global.html#deleteEmployee">deleteEmployee</a></li><li><a href="global.html#deleteInventoryItem">deleteInventoryItem</a></li><li><a href="global.html#deleteMenuItem">deleteMenuItem</a></li><li><a href="global.html#editMenuItem">editMenuItem</a></li><li><a href="global.html#fetchAnalyticsData">fetchAnalyticsData</a></li><li><a href="global.html#fetchEmployees">fetchEmployees</a></li><li><a href="global.html#fetchInventoryItems">fetchInventoryItems</a></li><li><a href="global.html#fetchMenuItems">fetchMenuItems</a></li><li><a href="global.html#fetchSalesData">fetchSalesData</a></li><li><a href="global.html#finalizeModifications">finalizeModifications</a></li><li><a href="global.html#getAllEmployees">getAllEmployees</a></li><li><a href="global.html#getAnalytics">getAnalytics</a></li><li><a href="global.html#getCompletedOrders">getCompletedOrders</a></li><li><a href="global.html#getCustomOrderedItems">getCustomOrderedItems</a></li><li><a href="global.html#getCustomers">getCustomers</a></li><li><a href="global.html#getEmployeeById">getEmployeeById</a></li><li><a href="global.html#getEmployeeIdByUsername">getEmployeeIdByUsername</a></li><li><a href="global.html#getInventory">getInventory</a></li><li><a href="global.html#getInventoryItemById">getInventoryItemById</a></li><li><a href="global.html#getItemsByCategory">getItemsByCategory</a></li><li><a href="global.html#getMenu">getMenu</a></li><li><a href="global.html#getMenuItemById">getMenuItemById</a></li><li><a href="global.html#getMenuItemInventory">getMenuItemInventory</a></li><li><a href="global.html#getProductUsage">getProductUsage</a></li><li><a href="global.html#getSalesPerHour">getSalesPerHour</a></li><li><a href="global.html#getTimeClass">getTimeClass</a></li><li><a href="global.html#getUnfinishedOrders">getUnfinishedOrders</a></li><li><a href="global.html#handleChooseItem">handleChooseItem</a></li><li><a href="global.html#handleDrinkSelection">handleDrinkSelection</a></li><li><a href="global.html#handleDrinkSelectionCancel">handleDrinkSelectionCancel</a></li><li><a href="global.html#handleFontDecrease">handleFontDecrease</a></li><li><a href="global.html#handleFontIncrease">handleFontIncrease</a></li><li><a href="global.html#handleIngredientAction">handleIngredientAction</a></li><li><a href="global.html#handleLoginSuccess">handleLoginSuccess</a></li><li><a href="global.html#handleLogout">handleLogout</a></li><li><a href="global.html#handleOrderTypeChange">handleOrderTypeChange</a></li><li><a href="global.html#handlePayment">handlePayment</a></li><li><a href="global.html#handlePhoneChange">handlePhoneChange</a></li><li><a href="global.html#handlePlaceOrder">handlePlaceOrder</a></li><li><a href="global.html#handleReviewClick">handleReviewClick</a></li><li><a href="global.html#handleViewChange">handleViewChange</a></li><li><a href="global.html#images">images</a></li><li><a href="global.html#isComboMeal">isComboMeal</a></li><li><a href="global.html#isWithinOrderRange">isWithinOrderRange</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#menuItemImages">menuItemImages</a></li><li><a href="global.html#navigateToPreviousOrders">navigateToPreviousOrders</a></li><li><a href="global.html#nextPage">nextPage</a></li><li><a href="global.html#openModificationModal">openModificationModal</a></li><li><a href="global.html#orderType">orderType</a></li><li><a href="global.html#orderTypeColor">orderTypeColor</a></li><li><a href="global.html#prevPage">prevPage</a></li><li><a href="global.html#removeFromCart">removeFromCart</a></li><li><a href="global.html#removeItem">removeItem</a></li><li><a href="global.html#renderCart">renderCart</a></li><li><a href="global.html#renderCategoryButtons">renderCategoryButtons</a></li><li><a href="global.html#renderMenuItems">renderMenuItems</a></li><li><a href="global.html#renderSpecialItems">renderSpecialItems</a></li><li><a href="global.html#renderTile">renderTile</a></li><li><a href="global.html#resetCart">resetCart</a></li><li><a href="global.html#toggleAccessibilityOptions">toggleAccessibilityOptions</a></li><li><a href="global.html#toggleHighContrastMode">toggleHighContrastMode</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleModal">toggleModal</a></li><li><a href="global.html#translatePlaceholders">translatePlaceholders</a></li><li><a href="global.html#updateCustomerAddress">updateCustomerAddress</a></li><li><a href="global.html#updateEmployee">updateEmployee</a></li><li><a href="global.html#updateInventory">updateInventory</a></li><li><a href="global.html#updateInventoryItem">updateInventoryItem</a></li><li><a href="global.html#updateMenuItems">updateMenuItems</a></li><li><a href="global.html#updateOrderStatus">updateOrderStatus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Dec 03 2024 03:03:15 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

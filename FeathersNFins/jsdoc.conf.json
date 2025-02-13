@@ -1,0 +1,15 @@
+{
+    "tags": {
+      "allowUnknownTags": true
+    },
+    "source": {
+      "include": ["backend/server.js"],
+      "includePattern": ".+\\.js$",
+      "excludePattern": "(^|\\/|\\\\)_|node_modules"
+    },
+    "opts": {
+      "destination": "./docs",
+      "recurse": true,
+      "encoding": "utf8"
+    }
+  }

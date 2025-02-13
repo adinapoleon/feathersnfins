@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: src/pages/docTemps/HomeDocTemp.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: src/pages/docTemps/HomeDocTemp.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { googleAuthService } from '../services/googleAuth';
+import './HomePage.css';
+import Weather from '../components/Weather';
+import LanguageSelector from '../components/LanguageSelector';
+import TranslateText from '../components/TranslateText';
+import homepage3 from '../assets/image/homepage_3.jpg';
+import homepage4 from '../assets/image/homepage_4.jpg';
+import homepage5 from '../assets/image/homepage_5.jpg';
+import googleIcon from '../assets/google-icon.svg';
+import restaurant from '../assets/image/Restaurant.png';
+
+  
+  /**
+   * Modal component for user login, allowing username/password authentication or Google login.
+   *
+   * @param {Object} props - The props for the modal.
+   * @param {boolean} props.isOpen - Flag indicating if the modal is open.
+   * @param {Function} props.onClose - Function to close the modal.
+   * @param {Function} props.onLoginSuccess - Function to handle login success.
+   * 
+   * @returns {JSX.Element|null} - The rendered modal or null if the modal is closed.
+   */
+  const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { login } = useAuth();
+  
+    /**
+     * Handles the form submission for logging in with username and password.
+     * It manages error handling and submission state.
+     * 
+     * @param {React.FormEvent} e - The form submit event.
+     */
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (isSubmitting) return;
+      
+      setError('');
+      setIsSubmitting(true);
+      
+      try {
+        const result = await login(username, password);
+        if (result.success) {
+          onClose();
+          onLoginSuccess();
+          setUsername('');
+          setPassword('');
+        } else {
+          setError(result.message || 'Invalid credentials');
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+        setError('An error occurred during login');
+      } finally {
+        setIsSubmitting(false);
+      }
+    };
+
+    /**
+     * Initiates the Google login process by redirecting the user to the Google authentication URL.
+     */
+    const handleGoogleLogin = () => {
+        window.location.href = googleAuthService.getAuthUrl();
+    };
+  
+    if (!isOpen) return null;
+  
+    return (
+      &lt;div className="modal-overlay" onClick={onClose}>
+        &lt;div className="modal-content" onClick={e => e.stopPropagation()}>
+          &lt;button 
+            className="modal-close" 
+            onClick={onClose}
+            disabled={isSubmitting}
+          >
+            &amp;times;
+          &lt;/button>
+          &lt;h2 className="modal-title">&lt;TranslateText>Employee Login&lt;/TranslateText>&lt;/h2>
+          {error &amp;&amp; (
+            &lt;div className="error-message">
+              {error}
+            &lt;/div>
+          )}
+          &lt;form className="login-form" onSubmit={handleSubmit}>
+            &lt;div className="form-group">
+              &lt;label htmlFor="username">&lt;TranslateText>Username&lt;/TranslateText>&lt;/label>
+              &lt;input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                disabled={isSubmitting}
+                placeholder="Enter your username"
+              />
+            &lt;/div>
+            &lt;div className="form-group">
+              &lt;label htmlFor="password">&lt;TranslateText>Password&lt;/TranslateText>&lt;/label>
+              &lt;input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={isSubmitting}
+                placeholder="Enter your password"
+              />
+            &lt;/div>
+            &lt;button 
+              type="submit" 
+              className="submit-button"
+              disabled={isSubmitting}
+            >
+              &lt;TranslateText>{isSubmitting ? 'Logging in...' : 'Sign In'}&lt;/TranslateText>
+            &lt;/button>
+          &lt;/form>
+
+          &lt;div className="auth-divider">
+            &lt;span>&lt;TranslateText>OR&lt;/TranslateText>&lt;/span>
+          &lt;/div>
+
+          &lt;div className="google-login-container">
+            &lt;button 
+              onClick={handleGoogleLogin}
+              className="google-login-button"
+              disabled={isSubmitting}
+            >
+              &lt;img 
+                src={googleIcon}
+                alt="Google"
+                className="google-icon"
+              />
+              &lt;TranslateText>Continue with Google&lt;/TranslateText>
+            &lt;/button>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    );
+  };
+
+  /**
+   * AboutSection component that displays information about the restaurant.
+   *
+   * @returns {JSX.Element} - The rendered about section.
+   */
+  const AboutSection = () => {
+    return (
+      &lt;div className="about-container">
+        &lt;div className="about-image">
+          &lt;img src={restaurant} alt="Restaurant" />
+        &lt;/div>
+        &lt;div className="about-text">
+          &lt;h2>
+            &lt;span>&lt;TranslateText>About&lt;/TranslateText>&lt;/span>
+            &lt;br />
+            &lt;span>&lt;TranslateText>Our Restaurant&lt;/TranslateText>&lt;/span>
+          &lt;/h2>
+          &lt;p>
+            &lt;TranslateText>
+              Nestled in the heart of Galveston, TX, Feathers N' Fins was born from a passion for blending the best of land and sea. 
+              Inspired by the coastal charm of our island home, we set out to create a dining experience where fresh Gulf seafood meets farm-raised poultry, paired with locally sourced ingredients and a touch of Southern hospitality. 
+              Whether you're craving a crispy golden fried catch, tender grilled chicken, or our signature fusion dishes, every plate tells a story of flavor and tradition. 
+              At Feathers N' Fins, we're more than a restaurant — we're a place where friends and family gather to savor great food and make unforgettable memories.
+            &lt;/TranslateText>
+          &lt;/p>
+        &lt;/div>
+      &lt;/div>
+    );
+  };
+
+  /**
+   * Updates the menu items based on the user's authentication status and role.
+   * Displays different menu items for authenticated users with specific roles.
+   */
+  const updateMenuItems = () => {
+    const publicMenuItems = [
+      { path: '/', label: 'Home' },
+      { path: '/menu', label: 'Menu' },
+      { path: '/customer', label: 'Customer' }
+    ];
+  
+    if (!isAuthenticated || !user) {
+      setMenuItems(publicMenuItems);
+      return;
+    }
+  
+    // Only show private routes for credentials-based authentication
+    if (user.authType === 'credentials') {
+      const privateMenuItems = [];
+      
+      switch (user.role.toLowerCase()) {
+        case 'manager':
+          privateMenuItems.push(
+            { path: '/manager', label: 'Manager' },
+            { path: '/cashier', label: 'Cashier' },
+            { path: '/kitchen', label: 'Kitchen' }
+          );
+          break;
+        case 'cashier':
+          privateMenuItems.push({ path: '/cashier', label: 'Cashier' });
+          break;
+        case 'kitchen':
+          privateMenuItems.push({ path: '/kitchen', label: 'Kitchen' });
+          break;
+        case 'frontend lead':
+        case 'frontend support':
+        case 'backend lead':
+        case 'backend support':
+          privateMenuItems.push(
+            { path: '/manager', label: 'Manager' },
+            { path: '/cashier', label: 'Cashier' },
+            { path: '/kitchen', label: 'Kitchen' }
+          );
+          break;
+        default:
+          break;
+      }
+      
+      setMenuItems([...publicMenuItems, ...privateMenuItems]);
+    } else {
+      // Google-authenticated users only see public routes
+      setMenuItems(publicMenuItems);
+    }
+  };
+
+  /**
+   * Toggles the visibility of the navigation menu.
+   */
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  /**
+   * Handles the logout functionality.
+   * Logs the user out and closes the navigation menu.
+   */
+  const handleLogout = () => {
+    logout();
+    setIsOpen(false);
+  };
+
+  /**
+   * Callback function triggered when login is successful.
+   * Updates the menu items to reflect the authenticated user.
+   */
+  const handleLoginSuccess = () => {
+    updateMenuItems();
+  };
+
+  /**
+   * Array of image URLs for the homepage image carousel.
+   * @type {Array&lt;string>}
+   */
+  const images = [homepage3, homepage4, homepage5];
+
+  /**
+   * Effect hook that controls the automatic image carousel.
+   * Changes the displayed image every 5 seconds.
+   */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => 
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [images.length]);
+  
+
+export default HomePage;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AboutSection">AboutSection</a></li><li><a href="global.html#AnalyticsDashboard">AnalyticsDashboard</a></li><li><a href="global.html#LoginModal">LoginModal</a></li><li><a href="global.html#MenuItem">MenuItem</a></li><li><a href="global.html#ReviewModal">ReviewModal</a></li><li><a href="global.html#ThankYouModal">ThankYouModal</a></li><li><a href="global.html#addEmployee">addEmployee</a></li><li><a href="global.html#addInventoryItem">addInventoryItem</a></li><li><a href="global.html#addMenuItem">addMenuItem</a></li><li><a href="global.html#addToCart">addToCart</a></li><li><a href="global.html#calculateTimeDifference">calculateTimeDifference</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#createCustomer">createCustomer</a></li><li><a href="global.html#createCustomerWithAddress">createCustomerWithAddress</a></li><li><a href="global.html#createOrder">createOrder</a></li><li><a href="global.html#createOrderItem">createOrderItem</a></li><li><a href="global.html#currentOrders">currentOrders</a></li><li><a href="global.html#deleteEmployee">deleteEmployee</a></li><li><a href="global.html#deleteInventoryItem">deleteInventoryItem</a></li><li><a href="global.html#deleteMenuItem">deleteMenuItem</a></li><li><a href="global.html#editMenuItem">editMenuItem</a></li><li><a href="global.html#fetchAnalyticsData">fetchAnalyticsData</a></li><li><a href="global.html#fetchEmployees">fetchEmployees</a></li><li><a href="global.html#fetchInventoryItems">fetchInventoryItems</a></li><li><a href="global.html#fetchMenuItems">fetchMenuItems</a></li><li><a href="global.html#fetchSalesData">fetchSalesData</a></li><li><a href="global.html#finalizeModifications">finalizeModifications</a></li><li><a href="global.html#getAllEmployees">getAllEmployees</a></li><li><a href="global.html#getAnalytics">getAnalytics</a></li><li><a href="global.html#getCompletedOrders">getCompletedOrders</a></li><li><a href="global.html#getCustomOrderedItems">getCustomOrderedItems</a></li><li><a href="global.html#getCustomers">getCustomers</a></li><li><a href="global.html#getEmployeeById">getEmployeeById</a></li><li><a href="global.html#getEmployeeIdByUsername">getEmployeeIdByUsername</a></li><li><a href="global.html#getInventory">getInventory</a></li><li><a href="global.html#getInventoryItemById">getInventoryItemById</a></li><li><a href="global.html#getItemsByCategory">getItemsByCategory</a></li><li><a href="global.html#getMenu">getMenu</a></li><li><a href="global.html#getMenuItemById">getMenuItemById</a></li><li><a href="global.html#getMenuItemInventory">getMenuItemInventory</a></li><li><a href="global.html#getProductUsage">getProductUsage</a></li><li><a href="global.html#getSalesPerHour">getSalesPerHour</a></li><li><a href="global.html#getTimeClass">getTimeClass</a></li><li><a href="global.html#getUnfinishedOrders">getUnfinishedOrders</a></li><li><a href="global.html#handleChooseItem">handleChooseItem</a></li><li><a href="global.html#handleDrinkSelection">handleDrinkSelection</a></li><li><a href="global.html#handleDrinkSelectionCancel">handleDrinkSelectionCancel</a></li><li><a href="global.html#handleFontDecrease">handleFontDecrease</a></li><li><a href="global.html#handleFontIncrease">handleFontIncrease</a></li><li><a href="global.html#handleIngredientAction">handleIngredientAction</a></li><li><a href="global.html#handleLoginSuccess">handleLoginSuccess</a></li><li><a href="global.html#handleLogout">handleLogout</a></li><li><a href="global.html#handleOrderTypeChange">handleOrderTypeChange</a></li><li><a href="global.html#handlePayment">handlePayment</a></li><li><a href="global.html#handlePhoneChange">handlePhoneChange</a></li><li><a href="global.html#handlePlaceOrder">handlePlaceOrder</a></li><li><a href="global.html#handleReviewClick">handleReviewClick</a></li><li><a href="global.html#handleViewChange">handleViewChange</a></li><li><a href="global.html#images">images</a></li><li><a href="global.html#isComboMeal">isComboMeal</a></li><li><a href="global.html#isWithinOrderRange">isWithinOrderRange</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#menuItemImages">menuItemImages</a></li><li><a href="global.html#navigateToPreviousOrders">navigateToPreviousOrders</a></li><li><a href="global.html#nextPage">nextPage</a></li><li><a href="global.html#openModificationModal">openModificationModal</a></li><li><a href="global.html#orderType">orderType</a></li><li><a href="global.html#orderTypeColor">orderTypeColor</a></li><li><a href="global.html#prevPage">prevPage</a></li><li><a href="global.html#removeFromCart">removeFromCart</a></li><li><a href="global.html#removeItem">removeItem</a></li><li><a href="global.html#renderCart">renderCart</a></li><li><a href="global.html#renderCategoryButtons">renderCategoryButtons</a></li><li><a href="global.html#renderMenuItems">renderMenuItems</a></li><li><a href="global.html#renderSpecialItems">renderSpecialItems</a></li><li><a href="global.html#renderTile">renderTile</a></li><li><a href="global.html#resetCart">resetCart</a></li><li><a href="global.html#toggleAccessibilityOptions">toggleAccessibilityOptions</a></li><li><a href="global.html#toggleHighContrastMode">toggleHighContrastMode</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleModal">toggleModal</a></li><li><a href="global.html#translatePlaceholders">translatePlaceholders</a></li><li><a href="global.html#updateCustomerAddress">updateCustomerAddress</a></li><li><a href="global.html#updateEmployee">updateEmployee</a></li><li><a href="global.html#updateInventory">updateInventory</a></li><li><a href="global.html#updateInventoryItem">updateInventoryItem</a></li><li><a href="global.html#updateMenuItems">updateMenuItems</a></li><li><a href="global.html#updateOrderStatus">updateOrderStatus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Dec 03 2024 03:03:15 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

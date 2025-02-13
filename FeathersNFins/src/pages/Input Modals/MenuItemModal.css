@@ -1,0 +1,234 @@
+/* Styling for the button */
+.menu-item-modal-btn-modal {
+    padding: 12px 24px;
+    font-size: 15px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 8px;
+}
+
+.menu-item-modal-btn-modal:hover {
+    background-color: #0056b3;
+}
+
+/* Modal overlay - background that covers the entire screen */
+.menu-item-modal-modal .menu-item-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+}
+
+/* Modal content container */
+.menu-item-modal-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    width: 500px; /* Increased width */
+    max-width: 90%;
+    z-index: 9999;  /* Ensure modal content is above overlay */
+    position: relative;  /* Allow interaction with input fields */
+}
+
+/* Title inside the modal */
+.menu-item-modal-title {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+}
+
+/* Label and input styles */
+.menu-item-modal-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+.menu-item-modal-label select,
+.menu-item-modal-label input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.menu-item-modal-label select:focus,
+.menu-item-modal-label input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Styling for the inventory items (multiple dropdowns) */
+.menu-item-modal-inventory-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item-modal-inventory-dropdown {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.menu-item-modal-inventory-dropdown select {
+    width: 70%;
+    font-size: 14px;
+}
+
+.menu-item-modal-inventory-dropdown input {
+    width: 25%;
+    font-size: 14px;
+}
+
+/* Button to add more dropdowns for inventory */
+.menu-item-modal-add-inventory-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.menu-item-modal-add-inventory-btn:hover {
+    background-color: #218838;
+}
+
+/* Vegetarian Checkbox */
+.menu-item-modal-checkbox-label {
+    display: flex; /* Use flexbox for easy alignment */
+    align-items: center; /* Vertically align the label and checkbox */
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: #555;
+}
+  
+.menu-item-modal-input-checkbox {
+    margin-left: 10px; /* Adjust the margin as needed */
+}
+
+/* Button inside the modal */
+.menu-item-modal-submit-button,
+.menu-item-modal-delete-button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+}
+
+.menu-item-modal-submit-button {
+    background-color: #28a745;
+}
+
+.menu-item-modal-submit-button:hover {
+    background-color: #218838;
+}
+
+.menu-item-modal-delete-button {
+    background-color: #bd0000;
+    margin-left: 25px;
+}
+
+.menu-item-modal-delete-button:hover {
+    background-color: #9e0000;
+}
+
+/* Modal overlay (background) */
+.menu-item-modal-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Close button in the modal */
+.menu-item-modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #000;
+}
+
+.menu-item-modal-close-button:hover {
+    color: red; /* Optional: changes color when hovering */
+}
+
+/* Submitted JSON section */
+.menu-item-modal-submitted-json {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+.menu-item-modal-submitted-title {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.menu-item-modal-submitted-content {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Submitted JSON display section */
+.menu-modal-json-display {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.menu-modal-json-heading {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.menu-modal-json-pre {
+    font-size: 14px;
+    color: #555;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    border: 1px solid #ddd;
+}

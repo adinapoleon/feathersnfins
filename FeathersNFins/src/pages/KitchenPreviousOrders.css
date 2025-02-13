@@ -1,0 +1,313 @@
+/* Main Container for Previous Orders */
+.kitchen-previous-orders-container {
+  
+  margin-top: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 25px;
+  max-width: 1200px;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* Header Styles */
+.kitchen-previous-orders-container h2 {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Accessibility Section */
+.kitchen-previous-accessibility {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.kitchen-previous-accessibility-button {
+  padding: 10px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.kitchen-previous-accessibility button:hover {
+  background-color: #dedede;
+  transition: background-color 0.3s ease;
+}
+
+.kitchen-previous-accessibility-popup {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-size: 16px;
+  color: black;
+}
+
+.kitchen-previous-accessibility-popup button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+/* Order Tiles */
+.kitchen-previous-orders-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.kitchen-previous-order-tile {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 32vh;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kitchen-previous-order-tile:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Tile Header */
+.kitchen-previous-order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.kitchen-previous-order-id {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.kitchen-previous-customer-name {
+  font-size: 1rem;
+  color: #777;
+}
+
+/* Tile Body with Scroll */
+.kitchen-previous-order-body {
+  margin-top: 10px;
+  max-height: 150px; 
+  overflow-y: auto; 
+  padding-right: 10px;
+}
+
+.kitchen-previous-order-body p {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.kitchen-previous-order-body ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kitchen-previous-order-body li {
+  margin: 5px 0;
+  color: #333;
+}
+
+.kitchen-previous-order-body::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.kitchen-previous-order-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.kitchen-previous-order-body::-webkit-scrollbar-thumb {
+  background-color: #007BFF; 
+  border-radius: 5px;
+}
+
+.kitchen-previous-order-body::-webkit-scrollbar-thumb:hover {
+  background-color: #0056b3; 
+}
+
+
+.kitchen-previous-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  margin-left: 85px;
+}
+
+.kitchen-previous-pagination button {
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.kitchen-previous-pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+.kitchen-previous-pagination span {
+  font-size: 1rem;
+  color: #333;
+}
+
+.kitchen-previous-back button {
+  text-align: center;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.kitchen-previous-back button:hover {
+  background-color: #0056b3;
+}
+
+.kitchen-previous-bottom-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+
+/* General High Contrast Mode */
+body.high-contrast {
+  background-color: #000;
+}
+
+body.high-contrast .kitchen-previous-orders-container {
+  background-color: #000;
+} 
+
+body.high-contrast .kitchen-previous-order-id {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: rgb(255, 85, 85);
+}
+
+body.high-contrast .kitchen-previous-customer-name {
+  font-size: 1rem;
+  color: rgb(85, 255, 85);
+}
+
+
+body.high-contrast .kitchen-previous-order-body li {
+  margin: 8px 0; 
+  font-size: 1rem;
+  color: #fff; 
+}
+
+body.high-contrast .kitchen-previous-order-body p {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: rgb(0, 87, 233);
+}
+
+
+body.high-contrast .kitchen-previous-order-tile {
+  background-color: #000;
+  border-color: #fff; 
+  color: #fff; 
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3); 
+}
+
+/* Header in High Contrast Mode */
+body.high-contrast .kitchen-previous-orders-container h2 {
+  color: #fff;
+  text-shadow: 0 0 5px #fff; 
+}
+
+body.high-contrast .kitchen-previous-order-body::-webkit-scrollbar {
+  width: 8px;
+  background: #444; 
+}
+
+body.high-contrast .kitchen-previous-order-body::-webkit-scrollbar-thumb {
+  background-color: #fff; 
+  border-radius: 5px;
+}
+
+body.high-contrast .kitchen-previous-accessibility-popup {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+body.high-contrast .kitchen-previous-pagination span {
+  color: #fff;
+}
+
+body.high-contrast .kitchen-previous-pagination button {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+body.high-contrast .kitchen-previous-pagination button:hover {
+  background-color: #444;
+}
+
+body.high-contrast .kitchen-previous-pagination button:disabled {
+  background-color: #5c5b5b;
+  cursor: not-allowed;
+}
+
+body.high-contrast .kitchen-previous-back button {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+body.high-contrast .kitchen-previous-back button:hover {
+  background-color: #444;
+}
+
+body.high-contrast .kitchen-previous-accessibility-button {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+body.high-contrast .kitchen-previous-order-header {
+  border-bottom: 1px solid #fff;
+}
+
